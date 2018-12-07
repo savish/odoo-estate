@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
+"""
+Estate module models
+"""
 
-from odoo import models, fields, api
+
+from odoo import models, fields
 
 
 class Property(models.Model):
+    """
+    Represents the `estate.property` model
+    """
     _name = "estate.property"
-    _description = "A property in an estate"
+    _description = "Represents a property"
 
     name = fields.Char()
     levy_amount = fields.Float(string="Levy amount")
@@ -14,12 +21,15 @@ class Property(models.Model):
     invoice_ids = fields.One2many("account.invoice", "property_id", string="Invoices")
 
     def generate_property_invoice(self):
+        """
+        Returns an invoice form, pre-populated with this property's details
+        """
         self.ensure_one()
 
         existing_product = self.env["product.product"].search(
             [["name", "=", f"Levy: {self.estate_id.name}"]]
         )
-        if len(existing_product) == 0:
+        if not existing_product:
             product = self.env["product.product"].create(
                 {"name": f"Levy: {self.estate_id.name}", "price": self.levy_amount}
             )
@@ -36,7 +46,7 @@ class Property(models.Model):
         )
 
         existing_acc_type = self.env["account.account.type"].search([["name", "=", "Levy Account"]])
-        if len(existing_acc_type) == 0:
+        if not existing_acc_type:
             account_type = self.env["account.account.type"].create(
                 {"name": "Levy Account", "type": "receivable", "internal_group": "income"}
             )
@@ -44,7 +54,7 @@ class Property(models.Model):
             account_type = existing_acc_type[0]
 
         existing_account = self.env["account.account"].search([["name", "=", "My Account"]])
-        if len(existing_account) == 0:
+        if not existing_account:
             account = self.env["account.account"].create(
                 {
                     "name": "My Account",
@@ -78,6 +88,9 @@ class Property(models.Model):
 
 
 class Estate(models.Model):
+    """
+    Represents the `estate.estate` model
+    """
     _name = "estate.estate"
     _description = "An estate with a number of properties"
 
@@ -86,6 +99,9 @@ class Estate(models.Model):
 
 
 class PropertyInvoice(models.Model):
+    """
+    Extends an `account.invoice` model
+    """
     _inherit = "account.invoice"
 
     property_id = fields.Many2one("estate.property", string="Property")
