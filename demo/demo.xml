@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        
+        <record id="estate0" model="estate.estate">
+            <field name="name">Greenleaf estate</field>
+        </record>
+
+        <record id="estate1" model="estate.estate">
+            <field name="name">Bayside estate</field>
+        </record>
+
+        <record id="estate2" model="estate.estate">
+            <field name="name">Treback square</field>
+        </record>
+
+        <!-- <record id="property00" model="estate.property">
+            <field name="name">Greenleaf Unit 1</field>
+            <field name="levy_amount">8000.00</field>
+            <field name="estate_id">estate0</field>
+        </record>
+
+        <record id="property01" model="estate.property">
+            <field name="name">Greenleaf Unit 2</field>
+            <field name="levy_amount">9300.00</field>
+            <field name="estate_id">estate0</field>
+        </record>
+
+        <record id="property10" model="estate.property">
+            <field name="name">Bayside Unit 1</field>
+            <field name="levy_amount">7500.00</field>
+            <field name="estate_id">estate1</field>
+        </record>
+
+        <record id="property11" model="estate.property">
+            <field name="name">Bayside Unit 2</field>
+            <field name="levy_amount">12000.00</field>
+            <field name="estate_id">estate1</field>
+        </record> -->
+
+        <!--  -->
+        <!--   <record id="object1" model="estate.estate"> -->
+        <!--     <field name="name">Object 1</field> -->
+        <!--     <field name="value">10</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object2" model="estate.estate"> -->
+        <!--     <field name="name">Object 2</field> -->
+        <!--     <field name="value">20</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object3" model="estate.estate"> -->
+        <!--     <field name="name">Object 3</field> -->
+        <!--     <field name="value">30</field> -->
+        <!--   </record> -->
+        <!--  -->
+        <!--   <record id="object4" model="estate.estate"> -->
+        <!--     <field name="name">Object 4</field> -->
+        <!--     <field name="value">40</field> -->
+        <!--   </record> -->
+        <!--  -->
+    </data>
+</odoo>

@@ -1,0 +1,128 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!-- <record model="ir.ui.view" id="estate.list">
+      <field name="name">estate list</field>
+      <field name="model">estate.estate</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record> -->
+
+    <record model="ir.ui.view" id="property_graph_view">
+        <field name="name">property graph</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <graph string="Levy amounts" type="bar">
+                <field name="name"/>
+                <field name="estate_id"/>
+                <field name="levy_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="property_invoice_action">
+      <field name="name">Property invoice</field>
+      <field name="res_model">account.invoice</field>
+      <field name="view_mode">form</field>
+    </record>
+
+    <record model="ir.ui.view" id="account_invoice_view">
+        <field name="name">Account Invoice View</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_due']" position="before">
+                <field name="property_id"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="property_form_view">
+        <field name="name">property form</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <form string="Property form">
+                <header>
+                    <button string="Generate an invoice" type="action" name="%(property_invoice_action)d"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="levy_amount"/>
+                        <field name="estate_id"/>
+                        <field name="partner_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="estate_form_view">
+        <field name="name">estate form</field>
+        <field name="model">estate.estate</field>
+        <field name="arch" type="xml">
+            <form string="Estate form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="property_ids"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+   
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="estate_list_action">
+      <field name="name">Estates</field>
+      <field name="res_model">estate.estate</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">kanban,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="estate_properties_list_action">
+      <field name="name">Propeties</field>
+      <field name="res_model">estate.property</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form,kanban,search,graph,pivot</field>
+    </record>
+   
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="estate.action_server">
+      <field name="name">estate server</field>
+      <field name="model_id" ref="model_estate_estate"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <menuitem name="Estate" id="estate_menu_root"/>
+   
+    <!-- menu categories -->
+    <menuitem name="Estates" id="estate_estates_menu" parent="estate_menu_root"/>
+    <menuitem name="Properties" id="estate_properties_menu" parent="estate_menu_root"/>
+   
+    <!-- actions -->    
+    <menuitem name="List estates" id="estate_estates_list" parent="estate_estates_menu"
+              action="estate_list_action"/>
+    <menuitem name="List properties" id="estate_properties_list" parent="estate_properties_menu"
+              action="estate_properties_list_action"/>
+   
+  </data>
+</odoo>
